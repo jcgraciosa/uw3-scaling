@@ -1,29 +1,34 @@
 #!/bin/bash
-export JOBS="4" # 2D multipliers
+export JOBS="8 9"                   # 3D multipliers or procs
+export SS_MEMORY="192GB 1920GB"     # memory for EACH job
+export RUNS_PER_JOB="1 2 3"         # the indices to use to use as label. This is for averaging
+export WALLTIME="01:00:00"
 
-export UW_NAME="Dev_23_02_2024" # uw version name
+export SCALING_TYPE=1               # 1=weak, 2=strong
+export SCALING_BASE=3
+export PBSTASK_MULT=1               # multiplier for requested PBSTASKS so you can increase memory request (e.g. use 384 GB, but you only need < 48 procs)
 
-export SCALING_TYPE=1  # 1=weak, 2=strong
+export UW_DIM=3                     # 2 or 3
 
-export UW_MODEL="timed_model_SolC"  #  "SolDB3d" for dim3, though penalty method probably needed for q1.
+export UW_SOL_TOLERANCE=1e-6        # tolerance to use
+export UW_MODEL="stokes-scaling"    # filename (w/o extension) to use in scaling
 
-export PICKLENAME=None      #"SolDB3d_Gadi_1e-11.pickle" #"conv_test_results_high_res_tighter_take2.pickle"  # set to "None" to disable conv testing
-export UW_ENABLE_IO="0"     # Jan 2024 - not used
+#export UW_SOL_TOLERANCE=1e-8       # poisson
+#export UW_MODEL="poisson-scaling"  # filename (w/o extension) to use in scaling
+
+export UW_NAME="uw3_May2025"        # uw version name
+
+export PICKLENAME=None              # "None" to disable conv testing
 ###
 
-export WALLTIME="00:10:00"
-export ACCOUNT="el06"
-export QUEUE="normal"       # normal or express
-
-export UW_ORDER=1           # Jan 2024 - not used
-
-export UW_DIM=2             # 2 or 3
-export SCALING_BASE=32      # use 32 for for 2D
+export ACCOUNT="m18"
+#export ACCOUNT="el06"
+export QUEUE="normal"               # normal or express
 
 # Test style - UW_MAX_ITS (+ve, recommended >100): Fixed work, (-ve): Accuracy (UW_SOL_TERANCE is used)
-export UW_MAX_ITS=50 # set to negaive for accuracy test, positive for fixed iterative work irrepective of result fidelity
-export UW_SOL_TOLERANCE=1e-5
+export UW_MAX_ITS=50                # set to negaive for accuracy test, positive for fixed iterative work irrepective of result fidelity - negative unsupported
 
-# unused 09/01/2024
-export UW_PENALTY=-1.   # set to negative value to disable penalty
+# unused May 2025
+export UW_PENALTY=-1.               # set to negative value to disable penalty
+export UW_ENABLE_IO="0"             # Jan 2024 - not used
 ###
